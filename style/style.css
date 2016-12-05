@@ -1,0 +1,39 @@
+body {
+  margin: 0px;
+}
+
+.navbar {
+  width: 100%;
+  background-color: #f7f7f7;
+  position: fixed;
+  top: 0;
+}
+
+.navbar > .navbar-list{
+  list-style-type: None;
+  margin: 0px;
+  float: right;
+}
+
+.navbar > .navbar-list > .navbar-item{
+  display: inline-block;
+}
+
+.navbar > .navbar-list > .navbar-item > .navbar-link {
+  display: inline-block;
+  text-decoration: none;
+  padding: 20px;
+  color: rgba(0,0,0,0.92);
+}
+.navbar > .navbar-list > .navbar-item > .navbar-link:hover {
+  color:#F7F7F7;
+  background-color: #A4A4A4;
+}
+
+.clearfix:after {
+    content: " "; /* Older browser do not support empty content */
+    visibility: hidden;
+    display: block;
+    height: 0;
+    clear: both;
+}
