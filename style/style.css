@@ -47,6 +47,7 @@ body {
   position: absolute;
   left: 0;
   top: 65%;
+  width: 100%;
   color: white;
   text-align: center;
   font-size: 100px;
@@ -63,7 +64,15 @@ body {
 
 }
 
-.header > .title-cite
+.header > .title-cite{
+  position: absolute;
+  top: 60%;
+  color: white;
+  width: 100%;
+  text-align: center;
+  font-family: batman;
+  font-size: 28px;
+}
 
 .clearfix:after {
     content: " "; /* Older browser do not support empty content */
