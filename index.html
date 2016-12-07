@@ -57,7 +57,7 @@
         <div class="row section-content container">
           <div class="col-4">
             <article>
-              <header>
+              <header class="team-member-header">
                 <h3>Alfred Pennyworth
                   (<span class="real-name">Michael Caine</span>)
                 </h3>
@@ -78,7 +78,7 @@
 
           <div class="col-4">
             <article>
-              <header>
+              <header class="team-member-header">
                 <h3>
                   Harvey Dent
                   (<span class="real-name">Aaron Eckhart</span>)
@@ -86,7 +86,14 @@
                 <h4 class="position">Fiscal del distrito</h4>
               </header>
               <figure class="team-member-photo">
-                <img src="images/harvey.jpg" alt="Foto de Harvey">
+                <div class="flip">
+                  <div class="front">
+                    <img src="images/harvey.jpg" alt="Foto de Harvey">
+                  </div>
+                  <div class="back">
+                    <img src="images/harvey-two-face.jpg" alt="Foto de Harvey dos caras">
+                  </div>
+                </div>
                 <figcaption class="photo-name">
                   <small>Harvey Dent</small>
                 </figcaption>
@@ -100,7 +107,7 @@
 
           <div class="col-4">
             <article>
-              <header>
+              <header class="team-member-header">
                 <h3>
                   James Gordon
                   (<span class="real-name">Gary Oldman</span>)
@@ -121,13 +128,34 @@
           </div>
         </div>
       </section>
-      <section id="transporte" class="section-content">
-        <article></article>
-        <article></article>
+      <section id="transporte" class="trasnport section-content">
+        <div class="row-flex">
+          <article class="transport-item">
+            <figure>
+              <img class="transport-img" src="images/car.jpg" alt="Coche Batman"></img>
+              <figcaption>
+                <small>Coche Batman</small>
+              </figcaption>
+            </figure>
+            <p class="transport-info">Fabricado en el año <time datetime="2005">2005</time> y se uso durante toda la trilogía.</p>
+
+          </article>
+
+          <article class="transport-item">
+            <figure>
+              <img class="transport-img" src="images/moto.jpg" alt="Moto Batman"></img>
+              <figcaption>
+                <small>Moto Batman</small>
+              </figcaption>
+            </figure>
+            <p class="transport-info">Fabricado en el año <time datetime="2005">2005</time> y se uso durante toda la trilogía.</p>
+
+          </article>
+        </div>
       </section>
     </main>
 
-    <footer>
+    <footer class="footer">
       José Antonio Palacios &#169; 2016
     </footer>
 
