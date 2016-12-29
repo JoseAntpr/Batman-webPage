@@ -4,6 +4,10 @@ document.getElementById("video-batman").addEventListener("click",function(event)
 
 });
 
+document.getElementById("video-batman").addEventListener("ended",function(event){
+  exitFullScreen();
+});
+
 function launchFullScreen(element){
   if(element.requesFullScreen){
     element.requesFullScreen();
@@ -17,15 +21,14 @@ function launchFullScreen(element){
 
 }
 
-function exitFullScreen(){
-  if(element.exitFullScreen){
-    element.requesFullScreen();
-  }else if(element.mozCancelFullScreen){
-    element.mozRequestFullScreen();
-  }else if(element.webkitExitFullScreen){
-    element.webkitRequestFullScreen();
-  }else if(element.msExitFullscreen){
-    element.msRequestFullscreen();
-  }
-
+function exitFullScreen() {
+	if (document.exitFullScreen) {
+		document.exitFullScreen();
+	} else if (document.mozCancelFullScreen) {
+		document.mozCancelFullScreen();
+	} else if (document.webkitExitFullscreen) {
+		document.webkitExitFullscreen();
+	} else if(document.msExitFullscreen) {
+		document.msExitFullscreen();
+	}
 }
