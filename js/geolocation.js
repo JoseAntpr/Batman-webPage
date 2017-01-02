@@ -8,6 +8,22 @@ function getLocation(){
 
 function showPosition(position) {
     console.log(position);
+    var url = "http://maps.googleapis.com/maps/api/geocode/json?latlng="+ position.coords.latitude +","+ position.coords.longitude + "&sensor=true"
+    var xhr;
+    if(window.XMLHttpRequest){
+      xhr = new XMLHttpRequest();
+    }else{
+      xhr = new ActiveXObject("Microsoft.XMLHTTP")
+    }
+    xhr.open("GET", url, true);
+
+    xhr.onreadystatechange = function(){
+      if(xhr.readyState == 4){
+        console.log("Respuesta servidor",JSON.parse(xhr.responseText));
+      }
+    }
+
+    xhr.send();
 }
 
 function errorHandler(error) {
