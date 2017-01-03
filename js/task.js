@@ -14,7 +14,7 @@ $(document).ready(function(){
     }else{
       var contentToAdd = '';
       for (var i = 0; i < tasks.length; i++){
-        contentToAdd += '<li>' + tasks[i].name + '</li>';
+        contentToAdd += '<li class="task-item">' + tasks[i].name + '</li>';
       }
       tasksContainer.append(contentToAdd);
     }

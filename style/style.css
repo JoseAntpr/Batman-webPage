@@ -242,7 +242,6 @@ input[type=button], input[type=submit], input[type=reset], button{
   height: 400px;
 }
 
-
 .clearfix:after {
     content: " "; /* Older browser do not support empty content */
     visibility: hidden;
