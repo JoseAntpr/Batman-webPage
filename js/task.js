@@ -14,7 +14,7 @@ $(document).ready(function(){
     }else{
       var contentToAdd = '';
       for (var i = 0; i < tasks.length; i++){
-        contentToAdd += '<li class="task-item">' + tasks[i].name + '</li>';
+        contentToAdd += '<li class="task-item">' + tasks[i].name + '<button class="deleteTask" data-task-id="'+ tasks[i].id +'">Eliminar</button></li>';
       }
       tasksContainer.append(contentToAdd);
     }
@@ -39,6 +39,9 @@ $(document).ready(function(){
       url: API_URL+ "tasks",
       data: data,
       success: success
+    })
+    .fail(function(error){
+      console.error("Error creando tarea.", error);
     });
   };
 
@@ -54,15 +57,39 @@ $(document).ready(function(){
     var success = function(data){
       tasks = data;
       drawTasks();
-
     };
+    var error = function(error){
+      console.error("Error cargando tareas.", error);
+    }
     $.ajax({
       type: "GET",
       url: API_URL+ "tasks",
-      success: success
+      success: success,
+      error:error
     });
   };
 
+  var deleteTask = function(id){
+    var success = function(data){
+      tasks = $.grep(tasks, function(item){
+        return item.id != id;
+      });
+      drawTasks();
+    };
+    $.ajax({
+      type: "DELETE",
+      url: API_URL + "tasks/" + id,
+      success: success,
+    })
+    .fail(function(error){
+      console.error("Error eliminando tarea",error);
+    });
+  }
+
+  $(document).on("click", ".deleteTask", function(event){
+    var id = $(this).data('taskId');
+    deleteTask(id);
+  });
   //Inicialización de componentes
   getTask();
 });
