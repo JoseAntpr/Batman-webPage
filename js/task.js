@@ -3,7 +3,7 @@ $(document).ready(function(){
   var tasks = [];
   var newTaskInput = $('#newTaskName');
   var tasksContainer = $('#taskContainer');
-
+  var loader = $('.loader');
 
 
   var drawTasks = function(){
@@ -14,7 +14,7 @@ $(document).ready(function(){
     }else{
       var contentToAdd = '';
       for (var i = 0; i < tasks.length; i++){
-        contentToAdd += '<li class="task-item">' + tasks[i].name + '<button class="deleteTask" data-task-id="'+ tasks[i].id +'">Eliminar</button></li>';
+        contentToAdd += '<li class="task-item"><input class="update-task-input" type="text"  required value="' + tasks[i].name + '"><button class="deleteTask" data-task-id="'+ tasks[i].id +'">Eliminar</button></li>';
       }
       tasksContainer.append(contentToAdd);
     }
@@ -52,7 +52,6 @@ $(document).ready(function(){
     }
 
   });
-
   var getTask =  function(){
     var success = function(data){
       tasks = data;
@@ -61,35 +60,85 @@ $(document).ready(function(){
     var error = function(error){
       console.error("Error cargando tareas.", error);
     }
+    var complete =  function(object,textStatus){
+      loader.hide();
+      if(textStatus == 'error'){
+        console.log("Ha habido un error, revisalo");
+      }else{
+        console.log("Todo ha ido de forma correcta");
+      }
+    }
+    var beforeSend = function () {
+      loader.show();
+      console.log("before send");
+    }
     $.ajax({
       type: "GET",
       url: API_URL+ "tasks",
       success: success,
-      error:error
+      error:error,
+      complete:complete,
+      beforeSend:beforeSend
     });
   };
 
   var deleteTask = function(id){
-    var success = function(data){
+
+    $.ajax({
+      type: "DELETE",
+      url: API_URL + "tasks/" + id
+    })
+    .done(function(data){
       tasks = $.grep(tasks, function(item){
         return item.id != id;
       });
       drawTasks();
-    };
-    $.ajax({
-      type: "DELETE",
-      url: API_URL + "tasks/" + id,
-      success: success,
     })
     .fail(function(error){
       console.error("Error eliminando tarea",error);
+    })
+    .always(function(object, status, error){
+      console.log(object, status, error);
     });
+  }
+
+  var updateTask = function(id, name){
+    var data = {
+      'name' : name
+    }
+    $.ajax({
+      type:"PUT",
+      url:API_URL +"tasks/" + id,
+      data:data
+    })
+    .done(function(data){
+      for(var i = 0; i< tasks.length; i++){
+        if(tasks[i].id == id){
+          tasks[i].name = name;
+        }
+      }
+      drawTasks();
+    })
+    .fail(function(error){
+      console.error("Error actualizando tarea",error);
+    });
+
   }
 
   $(document).on("click", ".deleteTask", function(event){
     var id = $(this).data('taskId');
     deleteTask(id);
   });
+
+  $(document).on("blur", ".task-item .update-task-input", function(event){
+    var newName = $(this).val();
+    var id = $(this).siblings('.deleteTask').data("taskId");
+    console.log(newName, id);
+    updateTask(id, newName);
+  });
+
+  setTimeout(function(){
+    getTask();
+  },2000);
   //Inicialización de componentes
-  getTask();
 });
